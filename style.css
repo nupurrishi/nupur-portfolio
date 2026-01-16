@@ -60,7 +60,7 @@ body {
 /* GRID */
 .links-grid { 
     display: grid; 
-    flex-direction: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr; 
     gap: 12px; 
 }
 
@@ -122,4 +122,5 @@ body {
         bottom: 20px;
     }
 }
+
 
