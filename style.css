@@ -57,11 +57,11 @@ body {
 .label { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 4px; color: var(--cobalt); margin-bottom: 10px; font-weight: 600; text-align: center; }
 .title { font-size: 2.2rem; color: #111; line-height: 1.1; margin-bottom: 25px; font-weight: 700; text-align: center; } 
 
-/* Vertical Stack */
+/* GRID */
 .links-grid { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 15px; 
+    display: grid; 
+    flex-direction: 1fr 1fr; 
+    gap: 12px; 
 }
 
 .link-item { 
@@ -122,3 +122,4 @@ body {
         bottom: 20px;
     }
 }
+
