@@ -3,17 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nupur Rishi | Web Developer & Author</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Bodoni+Moda:ital,wght@1,700&family=Outfit:wght@600;900&display=swap" rel="stylesheet">
+    <title>Nupur Rishi | Full-Stack Web Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Bodoni+Moda:ital,wght=1,700&family=Outfit:wght=600;850&display=swap" rel="stylesheet">
+    <!-- FontAwesome for high-quality social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global & Reset Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #000000;
+            color: #f8fafc;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            padding-top: 90px; /* Prevents split content from hiding underneath the sticky top bar */
+        }
+
+        /* STICKY TOP BAR: Anchored steady throughout scrolling with a 75%/25% background split */
+        .center-name {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to right, #000000 75%, #ffffff 75%);
+            border-bottom: 1px solid #1e293b;
+            padding: 0 2.5rem;
+        }
+
+        /* Left side container inside sticky header */
+        .header-left {
+            flex: 0 0 75%;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Right side container inside sticky header */
+        .header-right {
+            flex: 0 0 25%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-left: 2rem;
+        }
+
+        /* Fixed Visibility: Swapped dark gray for pure white to perfectly pop against the black background */
+        .center-name h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 850;
+            font-size: 2.3rem;
+            letter-spacing: 6px;
+            color: #ffffff; 
+            display: inline-block;
+        }
+
+        /* Social Media Icons Group */
+        .header-socials {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .header-socials a {
+            color: #0f172a; /* Dark sleek icons to match the white background side */
+            font-size: 1.5rem;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .header-socials a:hover {
+            color: #4f46e5; 
+            transform: scale(1.1);
+        }
+
+        /* Split View Layout Engine */
+        .split-view {
+            display: flex;
+            width: 100%;
+            min-height: calc(100vh - 90px);
+            flex-wrap: nowrap;
+        }
+
+        .side {
+            padding: 2.5rem;
+        }
+
+        /* LOGIC SIDE: Pure Black Background (75% Width) */
+        .side.logic {
+            flex: 0 0 75%;
+            max-width: 75%;
+            background-color: #000000;
+        }
+
+        /* ART SIDE: Pure White Background (25% Width) */
+        .side.art {
+            flex: 0 0 25%;
+            max-width: 25%;
+            background-color: #ffffff;
+            border-left: 1px solid #e2e8f0;
+        }
+
+        /* Coding Terminal Shell Styles */
+        .terminal {
+            background-color: #05070f;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            height: 100%;
+            transition: border-color 0.3s;
+        }
+        
+        .terminal:hover {
+            border-color: #38bdf8;
+        }
+
+        .term-header {
+            background-color: #0f172a;
+            padding: 0.9rem 1.2rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            border-radius: 11px 11px 0 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 7px;
+            display: inline-block;
+        }
+        .dot.red { background-color: #ef4444; }
+        .dot.yellow { background-color: #f59e0b; }
+        .dot.green { background-color: #10b981; }
+
+        .term-title {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        .term-body {
+            padding: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .cmd {
+            color: #38bdf8;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .cmd::before {
+            content: "nupur-dev@portfolio:~$ ";
+            color: #10b981;
+        }
+
+        .out {
+            color: #cbd5e1;
+            padding-left: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .exp-entry {
+            margin-bottom: 1.8rem;
+            padding-left: 15px;
+        }
+
+        .term-link {
+            color: #a78bfa;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .term-link:hover {
+            text-decoration: underline;
+            color: #c084fc;
+        }
+
+        .detail {
+            color: #94a3b8;
+            display: block;
+            margin-top: 6px;
+        }
+
+        /* Tech Stack Badges */
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin: 0.8rem 0 1.5rem 15px;
+        }
+
+        .stack span {
+            background-color: #1e1b4b;
+            color: #818cf8;
+            border: 1px solid #312e81;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .blink {
+            color: #10b981;
+            font-weight: bold;
+            animation: blinker 1.2s linear infinite;
+            margin-top: 2rem;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+
+        /* Artistry Side Layout */
+        .art-content {
+            max-width: 100%;
+        }
+
+        .label {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: #4f46e5;
+            margin-bottom: 0.3rem;
+            font-weight: 900;
+        }
+
+        .title {
+            font-family: 'Bodoni Moda', serif;
+            font-style: italic;
+            font-size: 2.1rem;
+            color: #0f172a;
+            margin-bottom: 2.5rem;
+            line-height: 1.2;
+        }
+
+        .links-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 100%;
+            transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
+        }
+
+        .link-item:hover {
+            transform: translateX(6px);
+            border-color: #4f46e5;
+            background-color: #f1f5f9;
+        }
+
+        .item-img {
+            width: 52px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-right: 14px;
+            background-color: #f1f5f9;
+            flex-shrink: 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .item-text {
+            overflow: hidden;
+        }
+
+        .item-text h3 {
+            font-size: 1rem;
+            color: #0f172a;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-text p {
+            font-size: 0.85rem;
+            margin: 2px 0;
+            color: #475569 !important;
+        }
+
+        .item-text a {
+            color: #0284c7;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 4px;
+            font-weight: bold;
+        }
+        .item-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer Section */
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2.5rem 0;
+            border-top: 1px solid #1e293b;
+            background-color: #000000;
+        }
+
+        .footer a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .side.logic {
+                flex: 0 0 70%;
+                max-width: 70%;
+            }
+            .side.art {
+                flex: 0 0 30%;
+                max-width: 30%;
+            }
+        }
+
+        @media (max-width: 850px) {
+            body {
+                padding-top: 140px; 
+            }
+            .center-name {
+                background: #000000; 
+                flex-direction: column;
+                height: auto;
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+            .header-left, .header-right {
+                flex: 0 0 100%;
+                justify-content: center;
+                padding-left: 0;
+            }
+            .header-socials a {
+                color: #ffffff; 
+            }
+            .split-view {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .side.logic, 
+            .side.art {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .side.art {
+                border-left: none;
+                border-top: 1px solid #e2e8f0;
+            }
+        }
+    </style>
 </head>
 <body>
 
+    <!-- STEADY STICKY HEADER WITH CRISP WHITE TYPOGRAPHY & SOCIAL LINKS -->
     <div class="center-name">
-        <h2>NUPUR RISHI</h2>
+        <div class="header-left">
+            <h2>NUPUR RISHI</h2>
+        </div>
+        <div class="header-right">
+            <div class="header-socials">
+                <a href="https://www.linkedin.com/in/nupur-rishi/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/nupurrishi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://youtube.com/channel/UCpA8ooWKLWPKL7NbzyCblog" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="mailto:rishi.nupur05@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
     </div>
 
     <div class="split-view">
+        
+        <!-- LOGIC SIDE: Pure Black (#000000) -->
         <section class="side logic">
             <div class="terminal">
                 <div class="term-header">
@@ -21,32 +407,53 @@
                     <p class="term-title">nupur_full_stack_log.sh</p>
                 </div>
                 <div class="term-body">
+                    
                     <p class="cmd">cat education_certs.txt</p>
                     <p class="out">
-                        • <strong>UNT B.A. in IT</strong> (GPA: 3.456)<br>
+                        • <strong>UNT B.A. in Information Technology</strong><br>
                         • <strong>NSA Cybersecurity Certified</strong><br>
-                        • Specialized in HTML Form Creation and PHP Connection with SQL Database Architecture
+                        • Focus: Secure Data Input Handling, Systems Architecture, & Core Infrastructure
                     </p>
                     
-                    <p class="cmd">ls ./tech_experience</p>
+                    <p class="cmd">ls ./professional_experience</p>
+                    
                     <div class="exp-entry">
-                        <a href="https://thesuccessdoor.com" target="_blank" class="term-link">The_Success_Door_LLC.sh</a><br> 
-                        <span class="detail"><strong>Web Developer and Creative Consultant:</strong>
-                        <br>> Designing responsive WordPress websites using Divi and custom HTML/CSS/PHP.
-                        <br>> Integrating HTML forms with backend SQL databases.</span>
+                        <a href="https://thesuccessdoor.com" target="_blank" class="term-link">The_Success_Door_LLC.sh</a>
+                        <br> 
+                        <span class="detail"><strong>Web Developer & Creative Consultant:</strong> [Jan 2025 - Present]
+                        <br>> Engineering production web applications using PHP, SQL, JavaScript, and React.
+                        <br>> Architecting secure login models, robust payment systems, and input verification filters.
+                        <br>> Optimizing site reliability, resolving core performance bottlenecks, and writing secure queries.
+                        <br>> Leveraging advanced AI Augmentation workflows (GitHub Copilot) to accelerate code delivery while ensuring strict quality standards via manual peer-review code cycles.
+                        <br>> Designing high-conversion layouts leveraging WordPress ecosystems (Divi, Avada, Elementor).</span>
                     </div>
 
                     <div class="exp-entry">
-                        <a href="#" class="term-link">iCode_McKinney.sys</a><br>
-                        <span class="detail"><strong> Technology and Operations Manager: </strong>
-                        <br>> Developed applications using C#, .NET, Unity, and Unreal Engine 5.
-                        <br>> Guided students in web development (HTML/CSS/JS/PHP).
-                        <br>> Troubleshot hardware/software for development labs.</span>
+                        <a href="#" class="term-link">iCode_McKinney.sys</a>
+                        <br>
+                        <span class="detail"><strong>Operations & Technology Manager:</strong> [Feb 2024 - Aug 2025]
+                        <br>> Directed tech ops for a high-volume development hub, resolving platform anomalies across hardware and systems.
+                        <br>> Supervised user account lifecycles and permission configurations for 100+ active directory accounts.
+                        <br>> Streamlined resource scheduling engines to mitigate conflicts and maximize classroom asset allocation.</span>
+                    </div>
+
+                    <div class="exp-entry">
+                        <a href="#" class="term-link">Ria_Advisory_LLC.env</a>
+                        <br>
+                        <span class="detail"><strong>Cloud/DevOps Intern:</strong> [June 2023 - Aug 2023]
+                        <br>> Specialized in fundamental AWS Cloud patterns, serverless paradigms, and target DevOps pipelines.
+                        <br>> Interfaced fluidly with distributed engineering units via enterprise workspace solutions.</span>
                     </div>
 
                     <p class="cmd">./fetch_tech_stack</p>
                     <div class="stack">
-                        <span>HTML5</span><span>CSS</span><span>JS</span><span>SQL</span><span>PHP</span><span>C#</span><span>AWS</span>
+                        <span>JavaScript</span><span>React</span><span>Next.js</span><span>Node.js</span><span>PHP</span><span>SQL</span><span>Docker</span><span>Git</span><span>Linux</span><span>AI_Augmentation</span>
+                    </div>
+
+                    <p class="cmd">cat client_projects.json</p>
+                    <div class="exp-entry">
+                        <span class="detail"><strong>Full-Stack Freelance Portfolios (2025):</strong>
+                        <br>> Shipped multiple parallel customer sites integrating customized modern UI components with robust payment processing routes.</span>
                     </div>
                     
                     <p class="blink">SYSTEM_READY_</p>
@@ -54,6 +461,7 @@
             </div>
         </section>
 
+        <!-- ART SIDE: Pure White (#ffffff) -->
         <section class="side art">
             <div class="art-content">
                 <h2 class="label">ARTISTRY & LEADERSHIP</h2>
@@ -64,6 +472,7 @@
                         <img src="assets/fly.png" alt="Fly Showcase" class="item-img">
                         <div class="item-text">
                             <h3>Fly Showcase</h3>
+                            <p>Project Coordinator & Graphic Designer</p>
                             <a href="https://flyshowcase.com" target="_blank">Visit →</a>
                         </div>
                     </div>
@@ -92,7 +501,7 @@
                         <img src="assets/dance1.png" alt="Dance" class="item-img">
                         <div class="item-text">
                             <h3>Dance Teacher</h3>
-                            <a href="https://www.ethnique.org/" target="_blank">Ethnique Performing Arts →</a>
+                            <a href="https://www.ethnique.org/" target="_blank">Ethnique Arts →</a>
                         </div>
                     </div>
                     <div class="link-item">
@@ -108,8 +517,8 @@
     </div>
 
     <div class="footer">
-        <a href="https://www.linkedin.com/in/nupur-rishi/">LINKEDIN</a>
-        <a href="https://github.com/nupurrishi">GITHUB</a>
+        <a href="https://www.linkedin.com/in/nupur-rishi/" target="_blank">LINKEDIN</a>
+        <a href="https://github.com/nupurrishi" target="_blank">GITHUB</a>
         <a href="mailto:rishi.nupur05@gmail.com">CONTACT ME</a>
     </div>
 
